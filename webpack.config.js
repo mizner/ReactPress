@@ -1,34 +1,28 @@
-var precss = require('precss'),
-    autoprefixer = require('autoprefixer'),
-    ExtractTextPlugin = require("extract-text-webpack-plugin");
+var path = require('path');
 
 
 module.exports = {
-    entry: "./assets/app.js",
+    entry: {
+        app: ["./assets/app.js"]
+    },
     output: {
-        path: './build',
+        path: path.resolve(__dirname, "build"),
+        publicPath: "/assets/",
         filename: "app.js"
     },
     module: {
-        loaders: [
-            {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
-            }
-            // {
-            //     test: /\.css$/,
-            //     loader: "style-loader!css-loader!postcss-loader"
-            // }
-
-        ]
+        loaders: [{
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                include: __dirname,
+                query: {
+                    presets: ['es2015']
+                }
+            }]
     },
-    postcss: function () {
-        //return [require('autoprefixer'), require('precss')];
-        return [precss, autoprefixer];
+    stats: {
+        colors: true
     },
-    plugins: [
-        new ExtractTextPlugin("style.css", {
-            allChunks: true
-        })
-    ]
+    devtool: 'source-map'
 };
