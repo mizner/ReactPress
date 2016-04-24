@@ -10,8 +10,8 @@ export class Posts extends React.Component {
             Posts: []
         };
     }
-    componentDidMount()
-    {
+
+    componentDidMount(){
         fetch('//react.dev/wp-json/wp/v2/posts')
             .then((response) => {
                 if(response.ok){
@@ -24,20 +24,29 @@ export class Posts extends React.Component {
                 this.setState({Posts:responseData});
             })
     }
+
     render() {
         let posts = this.state.Posts.map((post) => (
             <li key={post.id}>{post.title.rendered}</li>
         ));
+
+        let child = this.props.children && React.cloneElement(this.props.children,
+                { Posts: this.state.Posts }
+            );
+
         return (
-            <div className="Post">
-                <h1>Hellos {posts}</h1>
-                <span>{console.log('stuff')}</span>
+            <div>
+                <h1>Github Postss</h1>
+                <ul>
+                    {posts}
+                </ul>
+                {child}
             </div>
         );
     }
 }
 ReactDOM.render(
     <div>
-        <Posts></Posts>
+        <Posts/>
     </div>,
     document.querySelector("#main"));
