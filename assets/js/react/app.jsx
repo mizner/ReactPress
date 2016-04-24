@@ -1,8 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'whatwg-fetch';
 
 ///TEST THIS!
+
+fetch('http://react.dev/wp-json/wp/v2/posts')
+    .then(function(response) {
+        return response.json()
+    }).then(function(json) {
+    console.log('parsed json', json)
+}).catch(function(ex) {
+    console.log('parsing failed', ex)
+})
+
 
 export class Header extends React.Component {
     render() {
