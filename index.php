@@ -1,10 +1,21 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/build/style.css'?>">
-    </head>
-    <body>
-    <div id="main"></div>
-        <script type="text/javascript" src="<?php echo get_template_directory_uri(). '/build/app.js'?>" charset="utf-8"></script>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React Webpack Babel App</title>
+	<style>
+		#main {
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div id="main"></div>
+</div>
+<script src="<?php echo get_template_directory_uri() . '/build/bundle.js'?>" type="text/javascript"></script>
+</body>
 </html>
