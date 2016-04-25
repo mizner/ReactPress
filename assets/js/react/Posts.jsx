@@ -11,7 +11,7 @@ class Posts extends Component {
     }
     componentDidMount()
     {
-        fetch(this.props.source)
+        fetch('//react.dev/wp-json/wp/v2/posts')
             .then((response) => {
                 if(response.ok){
                     return response.json();
