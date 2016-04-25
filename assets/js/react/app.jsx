@@ -1,9 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
+
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+
+import { Router, Route, IndexRoute, Link } from 'react-router';
+import createBrowserHistory, from 'history/lib/createBrowserHistory';
+
+
 import 'whatwg-fetch';
 
-export class Posts extends React.Component {
+class Posts extends Component {
     constructor(){
         super(...arguments);
         this.state = {
@@ -36,8 +42,8 @@ export class Posts extends React.Component {
         );
     }
 }
-ReactDOM.render(
+render((
     <div>
         <Posts source="//react.dev/wp-json/wp/v2/posts"></Posts>
-    </div>,
+    </div>),
     document.querySelector("#main"));
