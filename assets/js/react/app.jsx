@@ -12,7 +12,7 @@ export class Posts extends React.Component {
     }
     componentDidMount()
     {
-        fetch('//react.dev/wp-json/wp/v2/posts')
+        fetch(this.props.source)
             .then((response) => {
                 if(response.ok){
                     return response.json();
@@ -26,18 +26,18 @@ export class Posts extends React.Component {
     }
     render() {
         let posts = this.state.Posts.map((post) => (
-            <li key={post.id}>{post.title.rendered}</li>
+        <a href={post.link}><li>{post.title.rendered}</li></a>
         ));
         return (
-            <div className="Post">
-                <h1>Hellos {posts}</h1>
+            <ul className="Post">
+                {posts}
                 <span>{console.log('stuff')}</span>
-            </div>
+            </ul>
         );
     }
 }
 ReactDOM.render(
     <div>
-        <Posts></Posts>
+        <Posts source="//react.dev/wp-json/wp/v2/posts"></Posts>
     </div>,
     document.querySelector("#main"));
