@@ -4,46 +4,42 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import { Router, Route, IndexRoute, Link } from 'react-router';
-import createBrowserHistory, from 'history/lib/createBrowserHistory';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+
+import About from './About';
+import Posts from './Posts';
+import PostContent from './PostContent';
+import Home from './Home';
+import ServerError from './ServerError';
 
 
-import 'whatwg-fetch';
-
-class Posts extends Component {
-    constructor(){
-        super(...arguments);
-        this.state = {
-            Posts: []
-        };
-    }
-    componentDidMount()
-    {
-        fetch(this.props.source)
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error("Server response wasn't OK");
-                }
-            })
-            .then((responseData) => {
-                this.setState({Posts:responseData});
-            })
-    }
+class App extends Component {
     render() {
-        let posts = this.state.Posts.map((post) => (
-        <a href={post.link}><li>{post.title.rendered}</li></a>
-        ));
         return (
-            <ul className="Post">
-                {posts}
-                <span>{console.log('finished')}</span>
-            </ul>
+            <div>
+                <header>App</header>
+                <menu>
+                    <ul>
+                        <li><Link to="/about" activeClassName="active">About</Link></li>
+                        <li><Link to="/posts" activeClassName="active">Posts</Link></li>
+                    </ul>
+                </menu>
+                {this.props.children}
+            </div>
         );
     }
 }
+
+
 render((
-    <div>
-        <Posts source="//react.dev/wp-json/wp/v2/posts"></Posts>
-    </div>),
-    document.querySelector("#main"));
+    <Router history={createBrowserHistory()}>
+        <Route path="/" component={App}>
+            <IndexRoute component={Home}/>
+            <Route path="about" component={About}/>
+            <Route path="posts" source="//react.dev/wp-json/wp/v2/posts" component={Posts}>
+                <Route path="/post/:post_name" component={PostContent} />
+            </Route>
+            <Route path="error" component={ServerError} />
+        </Route>
+    </Router>
+), document.getElementById('main'));
