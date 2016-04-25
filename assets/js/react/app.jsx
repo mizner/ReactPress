@@ -31,7 +31,7 @@ export class Posts extends React.Component {
         return (
             <ul className="Post">
                 {posts}
-                <span>{console.log('stuff')}</span>
+                <span>{console.log('finished')}</span>
             </ul>
         );
     }
