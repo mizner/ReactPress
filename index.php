@@ -4,12 +4,6 @@
 	<meta charset="UTF-8">
 	<title>React Webpack Babel App</title>
 	<style>
-		#main {
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
 	</style>
 </head>
 <body>
